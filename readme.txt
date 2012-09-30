@@ -3,7 +3,7 @@ Contributors: pereirinha
 Tags: variation details, variation, dimensions, size, weight, woocommerce, woothemes
 Requires at least: 3.4.1 and WooCommerce 1.6.3
 Tested up to: 3.4.1
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
 
@@ -41,6 +41,9 @@ Please, check the defined attributes. Please notice that, Woocommerce add the pr
 3. Volumetric dimensions and weight. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-3.jpg)
 
 == Changelog ==
+
+= 1.1 =
+Fix a bug to remove empty classes product_details created after each change.
 
 = 1.0 =
 Just unleash the first version.

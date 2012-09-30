@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
             }
         });
 
-        $(".product_details").empty();
+        $(".product_details").remove();
         $(".product_meta").append("<div class='product_details'>"+str+"</div>");
     });
     
