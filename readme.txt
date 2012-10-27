@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: variation details, variation, dimensions, size, weight, woocommerce, woothemes
 Requires at least: 3.4.1 and WooCommerce 1.6.3
 Tested up to: 3.4.1
-Stable tag: 2.0
+Stable tag: 2.0.1
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
 
@@ -40,13 +40,16 @@ At this point, vdopp plugin doesn't support "Custom product attributes". You wil
 
 == Screenshots ==
 
-1. [vimeo https://vimeo.com/51533811]
-2. The settings' page is where you define which attributes will display variations on page product. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-4.jpg)
-3. Bi-dimensional metric system details. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-1.jpg)
-4. Imperial system dimensions and weight. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-2.jpg)
-5. Volumetric dimensions and weight. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-3.jpg)
+1. The settings' page is where you define which attributes will display variations on page product. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-1.jpg)
+2. Bi-dimensional metric system details. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-2.jpg)
+3. Imperial system dimensions and weight. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-3.jpg)
+4. Volumetric dimensions and weight. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-4.jpg)
+5. Quick step-by-step tutorial. [vimeo https://vimeo.com/51533811]
 
 == Changelog ==
+
+= 2.0.1 =
+* Fix a bug that could result on jQuery unexpected results.
 
 = 2.0 =
 * New Variation settings tab within WooCommerce settings.
