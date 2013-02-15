@@ -2,8 +2,8 @@
 Contributors: pereirinha
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S626RA3BPS74S
 Tags: variation details, variation, dimensions, size, weight, woocommerce, woothemes
-Requires at least: 3.4.1 and WooCommerce 1.6.6
-Tested up to: 3.5.1 and WooCommerce 
+Requires at least: 3.4.1 and WooCommerce 1.6.3
+Tested up to: 3.5.1 and WooCommerce 1.6.6
 Stable tag: 2.0.2
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
