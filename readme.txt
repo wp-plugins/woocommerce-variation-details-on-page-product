@@ -54,7 +54,7 @@ At this point, vdopp plugin doesn't support "Custom product attributes". You wil
 * You can choose which DOM object will be used to hook product attributes.
 * You can choose which DOM object will be used to trigger action. This is a cool feature as I've faced themes that redefine DOM elements.
 * You can choose id/class for theming.
-* These settings are defined out of the box so must user don't need to bother defining them.
+* These settings are defined out of the box so most users don't need to bother defining them.
 * Minified version of javascript.
 * Javascript improvement.
 
