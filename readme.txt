@@ -19,7 +19,7 @@ On default environments, this plugin works out of the box.
 = Features =
 * Your can use the shortcode [mp_wc_vdopp_variations] and hook there the visibility of your details.
 * If your product is set to be variable and you have also set size and/or weight on each your predefined attributes, this plugin will show those details within other meta details.
-* Support version WooCommerce 2.0.0 RC2.
+* Support version WooCommerce 2.0.*
 * Choose the place holder to show variations.
 * Choose data id/class of displayed data for CSS design.
 * Choose the selector that triggers show data event.
