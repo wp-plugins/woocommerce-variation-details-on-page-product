@@ -1,96 +1,101 @@
+if( ! window.console ){
+	var console = { log: function(){} };
+}
+
 jQuery(document).ready(function($) {
 
-	if(typeof Variations.siblings != "undefined"){
-		var siblings  		= Variations.siblings.replace(/&quot;/g, '"'),
-			variations		= jQuery.parseJSON(siblings),
-			attributes		= {};
-		
-		if ( $('div').hasClass('mp_wc_vdopp_variations') ) {
-			Variations.att_data_hook = '.mp_wc_vdopp_variations';
-		}
-		if (Variations.att_data_sel.charAt(0) == '.') {
-			var type_data_selector = 'class';
-		} else if (Variations.att_data_sel.charAt(0) == '#') {
-			var type_data_selector = 'id';
+	var variationsRaw = window.Variations,
+		$selector = $(variationsRaw.att_dom_sel),
+		$hook = $(variationsRaw.att_data_hook),
+		type_data_selector,
+		selectedSelectors,
+		error = false;
+
+	/*
+	 * Control existence of DOM objects
+	 */
+	if( 0 === $selector.length ){
+		console.log('It seems that we can\'t find the DOM object were actions are hooked.');
+		error = true;
+	}
+	if( 0 === $hook.length ){
+		console.log('It seems that we can\'t find the DOM object were data will be hooked.');
+		error = true;
+	}
+
+	if(typeof variationsRaw.variations !== 'undefined'){
+		var variations = variationsRaw.variations.replace(/&quot;/g, '"'),
+			placeholder = variationsRaw.att_data_sel,
+			numVariations =+ variationsRaw.num_variations;
+
+		variations = jQuery.parseJSON(variations);
+
+		if (placeholder.charAt(0) === '.') {
+			type_data_selector = 'class';
+		} else if (placeholder.charAt(0) === '#') {
+			type_data_selector = 'id';
 		} else {
 			console.log('Misconfiguration on Data Selector. Please, verify first char.');
+			error = true;
 		}
 
-		var data_selector = Variations.att_data_sel.substring(1);
+		if( error ){
+			return;
+		}
 
-		$(Variations.att_dom_sel).on("change", function(e){
+		var data_selector = placeholder.substring(1);
 
-		    if ( ! ($(this).val()) ) return '';
-			
-			attributes[$(this).attr('name')] = $(this).val();
-			
-			if (variations != ''){
-				// Count number of variations
-				var no_variations = 0,
-					no_attributes = 0;
+		if( $( '.mp_wc_vdopp_variations' ).length > 0 ) {
+			$hook = $( '.mp_wc_vdopp_variations' );
+		}
 
-				for ( variation in variations[0]['variation_data'] ) {
-					if(variations[0]['variation_data'].hasOwnProperty(variation)) {
-						no_variations++;
-					}
+		$selector.on('change', function(){
+			var selection = {},
+				result = null;
+			$.each( $selector, function() {
+				var $this = $(this);
+				selection[ $this.attr( 'name' ) ] = $this.val();
+			});
+
+			selectedSelectors = 0;
+			$.each( $selector, function(){
+				if( $(this).val().length > 0 ) {
+					selectedSelectors++;
 				}
+			});
 
-				for ( atribute in attributes ) {
-					if(attributes.hasOwnProperty(atribute)) {
-						no_attributes++;
-					}
-				}
+			if ( selectedSelectors === numVariations ){
+				for( var i in variations ) {
+					var variables = variations[i].variables;
 
-				if (no_variations == no_attributes && no_variations > 0 ){
-					var keys = [];
-					for (var i=0; i < variations.length; i++) {
-						keys[i] = i;
-					}
-					searchVariation(variations, keys, attributes);
-					var variation_details = variations[keys];
-
-					if (variation_details) {
-						var product_details = '';
-						if (variation_details.length) product_details += variation_details.length + 'x';
-						if (variation_details.width) product_details += variation_details.width + 'x';
-						if (variation_details.height) {
-							product_details += variation_details.height;
-						} else {
-							product_details = product_details.slice(0, -1);
+					for( var variable in variables ) {
+						var value = variables[variable];
+						if ( value.length > 0 ) {
+							if( selection[variable] === value ) {
+								result = i;
+							} else {
+								result = null;
+								break;
+							}
 						}
-						if (product_details) product_details += Variations.att_dim_unit;
-						if (product_details && variation_details.weight) product_details += '<br>';
-						if (variation_details.weight) product_details += variation_details.weight + Variations.att_wei_unit;
-
-						// Cleanup data
-						$(Variations.att_data_sel).remove();
-						$(Variations.att_data_hook).append("<div "+type_data_selector+"='"+data_selector+"'>"+product_details+"</div>");
-
-						// Cleanup data	
-						variation_id = $("select")[0].selectedIndex-1;
-						if (variation_id == -1) $(Variations.att_data_sel).remove();
+					}
+					if( result ){
+						break;
 					}
 				}
+
+				var product_details = variations[ result ].dimensions + '<br>' + variations[ result ].weight;
+				$(placeholder).remove();
+				$hook.append('<div '+type_data_selector+'="'+data_selector+'">'+product_details+'</div>');
+
+			} else {
+				$(placeholder).remove();
 			}
 		});
 
 		// Cleanup data
-		$(".reset_variations").on("click", function(e){
-			attributes = new Array();
-			$(Variations.att_data_sel).remove();
+		$('.reset_variations').on('click', function(){
+			$(placeholder).remove();
 		});
-	}
-
-	function searchVariation(objects, key_values, attributes){
-		if (typeof(attributes) == 'undefined') attributes = new Array();
-		for (atribute in attributes) {
-			var many_keys = key_values.length;
-			for (var i = 0; i < many_keys; i++){
-				if (objects[i]['variation_data'][atribute] != attributes[atribute]) key_values.splice(key_values.indexOf(i), 1);
-			}
-			if (key_values.length == 1)	return key_values;
-		};
-
-		searchVariation(objects, key_values, attributes);
 	}
 });

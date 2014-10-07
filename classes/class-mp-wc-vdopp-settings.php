@@ -16,8 +16,8 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 		
 		public function __construct() {
 			global $mp_wc_vdopp;
-			$this->plugin_id		= $mp_wc_vdopp->plugin_prefix;
-			$this->tab_name			= &$this->plugin_id;
+			$this->plugin_id   		= $mp_wc_vdopp->plugin_prefix;
+			$this->tab_name    		= &$this->plugin_id;
 			$this->options_name		= array($this->plugin_id.'_data_hook', $this->plugin_id.'_dom_selector', $this->plugin_id.'_data_selector');
 			add_action( 'admin_init', array( $this, 'verify_first_use' ) );
 			add_action( 'admin_init', array( $this, 'init_form_fields' ) );
@@ -29,7 +29,7 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 		}
 		
 		// Call for actions
-		public function load_hooks() {	
+		public function load_hooks() {
 			add_filter( 'woocommerce_settings_tabs_array', array( &$this, 'add_settings_tab' ) );
 			add_action( 'woocommerce_settings_tabs_' . $this->tab_name, array( &$this, 'create_settings_page' ) );
 			add_action( 'woocommerce_update_options_' . $this->tab_name, array( &$this, 'save_settings_page' ) );
@@ -60,22 +60,22 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 			$attribute_taxonomies = $woocommerce->get_attribute_taxonomies();
 			$this->form_fields = array(
 				'data_hook' => array(
-					'title'			=> '<b>Place holder for variation data</b>',
+					'title'      	=> '<b>Place holder for variation data</b>',
 					'description'	=> 'Choose a CSS class or id where you want to hook variation data. For instance: .variations or .product_meta. Default value: .variations',
-					'type'			=> 'text',
-					'default'		=> get_option( $this->plugin_id.'_data_hook' )
+					'type'       	=> 'text',
+					'default'    	=> get_option( $this->plugin_id.'_data_hook' )
 				),
 				'dom_selector' => array(
-					'title'			=> '<b>DOM Selector</b>',
+					'title'      	=> '<b>DOM Selector</b>',
 					'description'	=> 'Define the selector that will trigger show data event. Default value: form.cart select',
-					'type'			=> 'text',
-					'default'		=> get_option( $this->plugin_id.'_dom_selector' )
+					'type'       	=> 'text',
+					'default'    	=> get_option( $this->plugin_id.'_dom_selector' )
 				),
 				'data_selector' => array(
-					'title'			=> '<b>Data Selector</b>',
+					'title'      	=> '<b>Data Selector</b>',
 					'description'	=> 'Choose the id/class of displayed data. Default value: .product_details',
-					'type'			=> 'text',
-					'default'		=> get_option( $this->plugin_id.'_data_selector' )
+					'type'       	=> 'text',
+					'default'    	=> get_option( $this->plugin_id.'_data_selector' )
 				)
 			);
 		}
@@ -101,10 +101,10 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 			foreach ( $_POST as $key => $value ) {
 				if ( strpos( $key, $this->plugin_id ) !== false ) {
 					if ( get_option ( $key ) ) :
-					 		update_option( $key, $value );
-					 	else :
-					 		add_option( $key, $value );
-					 	endif;
+						update_option( $key, $value );
+					else :
+						add_option( $key, $value );
+					endif;
 					$control = 1;
 				}
 				if ( !isset ( $control ) ) {
