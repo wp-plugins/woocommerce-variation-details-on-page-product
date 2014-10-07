@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: variation details, variation, dimensions, size, weight, woocommerce, woothemes
 Requires at least: 4.0 and WooCommerce 2.2
 Tested up to: 4.0
-Stable tag: 3.1.2.1
+Stable tag: 3.1.2.2
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
 
@@ -50,6 +50,10 @@ Due to internal changes, all of the previous definitions of attribute keys were 
 1. Volumetric dimensions and weight. [Click for larger image view](http://www.wordpress.org/extend/plugins/woocommerce-variation-details-on-page-product/screenshot-4.jpg)
 
 == Changelog ==
+
+= 3.1.2.2 =
+* Automatically display variation details if default selection is defined
+* Fix a bug that would cause display weight unit even if there was no weight variation set
 
 = 3.1.2.1 =
 * Bring back PHP 5.2 support
