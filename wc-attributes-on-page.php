@@ -4,7 +4,7 @@
 Plugin Name: WooCommerce Variation Details on Page Product
 Plugin URI: https://github.com/pereirinha/woocommerce-variation-details-on-page-product
 Description: Display physical size and weight of product within product meta details.
-Version: 3.1.2
+Version: 3.1.2.1
 Author: Marco Pereirinha
 Author URI: http://www.linkedin.com/in/marcopereirinha
 */
@@ -17,7 +17,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		class MP_WC_Variation_Details_On_Page_Product {
 
 			// Definition of version
-			const VERSION = "3.1.2";
+			const VERSION = "3.1.2.1";
 			const VERSION_OPTION_NAME = "mp_wc_vdopp_version";
 
 			public $plugin_prefix;
@@ -108,18 +108,18 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			// Run every time. Used since the activation hook is not executed when updating a plugin
 			private function install() {
-				$installed_version = get_option( SELF::VERSION_OPTION_NAME );
+				$installed_version = get_option( MP_WC_Variation_Details_On_Page_Product::VERSION_OPTION_NAME );
 
 				if ( ! $installed_version ) {
 					// initial install, set the version of the plugin on options table
-					add_option( $installed_version, SELF::VERSION_OPTION_NAME );
+					add_option( $installed_version, MP_WC_Variation_Details_On_Page_Product::VERSION_OPTION_NAME );
 				}
 
-				if ( $installed_version != SELF::VERSION ) {
+				if ( $installed_version != MP_WC_Variation_Details_On_Page_Product::VERSION ) {
 					$this->upgrade( $installed_version );
 
 					// new version number
-					update_option( SELF::VERSION_OPTION_NAME, SELF::VERSION );
+					update_option( MP_WC_Variation_Details_On_Page_Product::VERSION_OPTION_NAME, MP_WC_Variation_Details_On_Page_Product::VERSION );
 				}
 			}
 
