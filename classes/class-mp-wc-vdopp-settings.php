@@ -57,7 +57,7 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 		// Initialization of form fields
 		public function init_form_fields() {
 			global $woocommerce;
-			$attribute_taxonomies = $woocommerce->get_attribute_taxonomies();
+			$attribute_taxonomies = wc_get_attribute_taxonomies();
 
 			if ( isset( $_POST[ $this->plugin_id . '_data_hook' ] ) ) {
 				$defaults[ 'data_hook' ] = $_POST[ $this->plugin_id . '_data_hook' ];
