@@ -2,9 +2,9 @@
 Contributors: pereirinha
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S626RA3BPS74S
 Tags: variation details, variation, dimensions, size, weight, woocommerce, woothemes
-Requires at least: 4.0 and WooCommerce 2.2
-Tested up to: 4.0
-Stable tag: 3.1.2.2
+Requires at least: 4.2.3 and WooCommerce 2.2
+Tested up to: 4.2.3
+Stable tag: 3.2
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
 
@@ -51,6 +51,10 @@ Due to internal changes, all of the previous definitions of attribute keys were 
 
 == Changelog ==
 
+= 3.2 =
+* Support for radio buttons selectors
+* Data sanitization
+
 = 3.1.2.2 =
 * Automatically display variation details if default selection is defined
 * Fix a bug that would cause display weight unit even if there was no weight variation set
@@ -60,7 +64,7 @@ Due to internal changes, all of the previous definitions of attribute keys were 
 * Fix a bug pointed out by @seanph when saving settings, which required to refresh the settings page after saving to get right values
 
 = 3.1.2 =
-* Fix an issue caused by WooCommerce deprecated methods 
+* Fix an issue caused by WooCommerce deprecated methods
 * When defined DOM objects don't exist, console will log helping debugging
 * Slimmer JavaScript overhead
 
