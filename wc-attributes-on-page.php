@@ -4,7 +4,7 @@
 Plugin Name: WooCommerce Variation Details on Page Product
 Plugin URI: https://github.com/pereirinha/woocommerce-variation-details-on-page-product
 Description: Display physical size and weight of product within product meta details.
-Version: 3.2
+Version: 3.2.1
 Author: Marco Pereirinha
 Author URI: http://www.linkedin.com/in/marcopereirinha
 */
@@ -23,10 +23,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			public $plugin_prefix;
 			private $settings;
 			private $variations;
+			private $debug;
 
 			public function __construct() {
 				$this->plugin_prefix   = 'mp_wc_vdopp';
 				$this->old_option_name = 'mp_wc_vdopp_keys';
+				$this->debug = false;
 			}
 
 			public function load() {
@@ -35,6 +37,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 				// Load the JS
 				add_filter( 'wp_enqueue_scripts', array( &$this, 'register_scripts' ), 15 );
+
+				// Load text domain
+				add_action( 'plugins_loaded', array( &$this, 'load_plugin_textdomain' ) );
 
 				// Installation
 				if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
@@ -93,6 +98,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					'att_data_hook'  => $att_data_hook,
 					'att_dom_sel'    => $att_dom_sel,
 					'att_data_sel'   => $att_data_sel,
+					'num_variations' => count( $variations ),
 				);
 
 				// enqueue the script
@@ -101,14 +107,23 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			}
 
 			public function register_scripts() {
+				$extra = 'min.';
 
-				$js_url  = plugins_url( 'js/wc-attributes-on-page.min.js', __FILE__ );
-				$js_file = WP_PLUGIN_DIR . '/woocommerce-variation-details-on-page-product/js/wc-attributes-on-page.min.js';
+				if ( $this->debug ) {
+					$extra = '';
+				}
+
+				$js_url  = plugins_url( 'js/wc-attributes-on-page.' . $extra . 'js', __FILE__ );
+				$js_file = WP_PLUGIN_DIR . '/woocommerce-variation-details-on-page-product/js/wc-attributes-on-page.' . $extra . 'js';
 
 				if ( file_exists( $js_file ) ) {
 					// register your script location, dependencies and version
 					wp_register_script( 'mp_wc_variation_details', $js_url, array( 'jquery' ) );
 				}
+			}
+
+			public function load_plugin_textdomain() {
+				load_plugin_textdomain( 'mp_wc_vdopp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 			}
 
 			/** Lifecycle methods **/

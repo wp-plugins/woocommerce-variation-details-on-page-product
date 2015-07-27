@@ -50,7 +50,7 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 
 		// Create Variations tab
 		public function add_settings_tab($tabs) {
-			$tabs[ $this->tab_name ] = __( 'Variations', $this->tab_name );
+			$tabs[ $this->tab_name ] = __( 'Variations', 'mp_wc_vdopp' );
 			return $tabs;
 		}
 
@@ -59,36 +59,28 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 			global $woocommerce;
 			$attribute_taxonomies = wc_get_attribute_taxonomies();
 
-			$defaults = array(
-				'data_hook'     => get_option( $this->plugin_id . '_data_hook' ),
-				'dom_selector'  => get_option( $this->plugin_id . '_dom_selector' ),
-				'data_selector' => get_option( $this->plugin_id . '_data_selector' ),
-			);
-
 			$args = array(
-				'data_hook'     => sanitize_text_field( $_POST[ $this->plugin_id . '_data_hook' ] ),
-				'dom_selector'  => sanitize_text_field( $_POST[ $this->plugin_id . '_dom_selector' ] ),
-				'data_selector' => sanitize_text_field( $_POST[ $this->plugin_id . '_data_selector' ] ),
+				'data_hook'     => sanitize_text_field( $_POST[ $this->plugin_id . '_data_hook' ] ) ?: get_option( $this->plugin_id . '_data_hook' ),
+				'dom_selector'  => sanitize_text_field( $_POST[ $this->plugin_id . '_dom_selector' ] ) ?: get_option( $this->plugin_id . '_dom_selector' ),
+				'data_selector' => sanitize_text_field( $_POST[ $this->plugin_id . '_data_selector' ] ) ?: get_option( $this->plugin_id . '_data_selector' ),
 			);
-
-			$args = wp_parse_args( $args, $defaults );
 
 			$this->form_fields = array(
 				'data_hook' => array(
-					'title'       => '<b>Place holder for variation data</b>',
-					'description' => 'Choose a CSS class or id where you want to hook variation data. For instance: .variations or .product_meta. Default value: .variations',
+					'title'       => __( '<b>Place holder for variation data</b>', 'mp_wc_vdopp' ),
+					'description' => __( 'Choose a CSS class or id where you want to hook variation data. For instance: .variations or .product_meta. Default value: .variations', 'mp_wc_vdopp' ),
 					'type'        => 'text',
 					'default'     => $args['data_hook'],
 				),
 				'dom_selector' => array(
-					'title'       => '<b>DOM Selector</b>',
-					'description' => 'Define the selector that will trigger show data event. Default value: form.cart select',
+					'title'       => __( '<b>DOM Selector</b>', 'mp_wc_vdopp' ),
+					'description' => __( 'Define the selector that will trigger show data event. Default value: form.cart select', 'mp_wc_vdopp' ),
 					'type'        => 'text',
 					'default'     => $args['dom_selector'],
 				),
 				'data_selector' => array(
-					'title'       => '<b>Data Selector</b>',
-					'description' => 'Choose the id/class of displayed data. Default value: .product_details',
+					'title'       => __( '<b>Data Selector</b>', 'mp_wc_vdopp' ),
+					'description' => __( 'Choose the id/class of displayed data. Default value: .product_details', 'mp_wc_vdopp' ),
 					'type'        => 'text',
 					'default'     => $args['data_selector'],
 				),
@@ -102,9 +94,9 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 				$this->settings[ $option_name ]  = get_option( $option_name );
 			}
 			?>
-			<h3>WooCommerce Variation Details on Page Product</h3>
-			<p>This plugin has predefined settings outside the box. If you feel comfortable, you are welcome to update data to meet your requirements.</p>
-			<p><strong>Important:</strong> Use a . to identify a class and a # to identify an id.</p>
+			<h3><?php _e( 'WooCommerce Variation Details on Page Product', 'mp_wc_vdopp' ); ?></h3>
+			<p><?php _e( 'This plugin has predefined settings outside the box. If you feel comfortable, you are welcome to update data to meet your requirements.', 'mp_wc_vdopp' ); ?></p>
+			<p><?php _e( '<strong>Important:</strong> Use a . to identify a class and a # to identify an id.', 'mp_wc_vdopp' ); ?></p>
 			<table class="form-table">
 				<?php $this->generate_settings_html();?>
 			</table>
@@ -133,7 +125,7 @@ if ( ! class_exists( 'MP_WC_Variation_Details_On_Page_Product_Settings' ) ) {
 
 		private function donation() {
 			?>
-			<p>Please, support further development of this plugin by buying the guy an extra dose of caffeine.</p>
+			<p><?php _e( 'Please, support further development of this plugin by buying the guy an extra dose of caffeine.', 'mp_wc_vdopp' ); ?></p>
 			<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S626RA3BPS74S" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"></a>
 			<?php
 		}
