@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: variation details, variation, dimensions, size, weight, woocommerce, woothemes
 Requires at least: 4.2.3 and WooCommerce 2.2
 Tested up to: 4.2.3
-Stable tag: 3.2
+Stable tag: 3.2.1
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
 
@@ -51,8 +51,14 @@ Due to internal changes, all of the previous definitions of attribute keys were 
 
 == Changelog ==
 
+= 3.2.1 =
+* Add support for muliple selectors
+* Add debug mode
+* Add translations support
+* Add portuguese translation
+
 = 3.2 =
-* Support for radio buttons selectors
+* Support for radio button selectors
 * Data sanitization
 
 = 3.1.2.2 =

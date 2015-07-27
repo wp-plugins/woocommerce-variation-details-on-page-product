@@ -5,30 +5,65 @@ if ( 'object' !== typeof console ) {
 (function($){
 	'use strict';
 
-	var toogleData = function toogleDataF( e ){
-		var attribute = e.target.name;
+	var prop,
+		filterData = function filterDataF( obj ) {
+			return selectedVal[prop] === obj[prop];
+		},
+		toogleData = function toogleDataF( e ){
+			var attribute = e.target.name;
 
-		switch( selectorType ) {
-			case 'SELECT':
-				selectedVal = $selector.find( 'option:selected' ).val();
-				break;
-			case 'INPUT':
-				selectedVal = $selector.closest( ':checked' ).val();
-				break;
-		}
+			if ( 'variation_id' === attribute ) {
+				return;
+			}
 
-		var result = variations.filter( function( obj ) {
-			return selectedVal === obj[attribute];
-		});
+			if( -1 === $.inArray( attribute, attributes ) ) {
+				attributes.push( attribute );
+			}
 
-		if ( result.length > 0 ) {
-			var product_details = result[0].dimensions + '<br>' + result[0].weight;
-			$(placeholder).remove();
-			$hook.append('<div '+type_data_selector+'="'+data_selector+'">'+product_details+'</div>');
-		} else {
-			$(placeholder).remove();
-		}
-	};
+			$.each( $selector, function() {
+				var $this = $(this),
+					thisAttribute = 'attribute_' + $this.attr('id'),
+					value;
+
+				switch( selectorType ) {
+					case 'SELECT':
+						 value = $this.find( 'option:selected' ).val();
+						if( '' !== value ) {
+							selectedVal[thisAttribute] = value;
+						} else {
+							delete selectedVal[thisAttribute];
+						}
+						break;
+
+					case 'INPUT':
+						value = $this.closest( ':checked' ).val();
+						if( undefined !== value ) {
+							selectedVal[thisAttribute] = value;
+						}
+						break;
+				}
+			});
+
+			// Wait until all selection are made
+			if ( Object.keys(selectedVal).length !== numSelectors ) {
+				$(placeholder).remove();
+				return;
+			}
+
+			var result = variations;
+
+			for ( prop in selectedVal ) {
+				if ( selectedVal. hasOwnProperty( prop ) ) {
+					result = result.filter( filterData );
+				}
+			}
+
+			if ( result.length > 0 ) {
+				var product_details = result[0].dimensions + '<br>' + result[0].weight;
+				$(placeholder).remove();
+				$hook.append('<div '+type_data_selector+'="'+data_selector+'">'+product_details+'</div>');
+			}
+		};
 
 	var variationsRaw = window.mp_wc_variations;
 
@@ -38,8 +73,10 @@ if ( 'object' !== typeof console ) {
 			selectorType  = $selector[0].tagName,
 			variations    = variationsRaw.variations.replace(/&quot;/g, '"'),
 			placeholder   = variationsRaw.att_data_sel,
-			type_data_selector,
-			selectedVal;
+			numSelectors  = +variationsRaw.num_variations, // Cast integer
+			selectedVal   = {},
+			attributes    = [],
+			type_data_selector;
 
 		/*
 		 * Control existence of DOM objects
