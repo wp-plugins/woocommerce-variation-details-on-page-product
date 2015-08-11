@@ -69,31 +69,33 @@ if ( 'object' !== typeof console ) {
 
 	if ( typeof variationsRaw !== 'undefined' ) {
 		var $selector     = $( variationsRaw.att_dom_sel ),
-			$hook         = $( variationsRaw.att_data_hook ),
-			selectorType  = $selector[0].tagName,
-			variations    = variationsRaw.variations.replace(/&quot;/g, '"'),
+			$hook         = $( variationsRaw.att_data_hook );
+
+		/*
+		 * Control existence of DOM objects
+		 */
+		if ( 0 === $selector.length ) {
+			console.log( '%cError VDOPP:', 'font-weight: bold; color: red', 'Sorry but I can\'t find the DOM object were actions are hooked.' );
+			return false;
+		}
+		if ( 0 === $hook.length ) {
+			console.log( '%cError VDOPP:', 'font-weight: bold; color: red', 'Sorry, it seems that I can\'t find the DOM object were data will be hooked.' );
+			return false;
+		}
+
+		var selectorType  = $selector[0].tagName;
+
+		if ( -1 === [ 'SELECT', 'INPUT' ].indexOf( selectorType ) ) {
+			console.log( '%cError VDOPP:', 'font-weight: bold; color: red', 'This plugin is intended to work only with dropdown lists and radio buttons as variations selectors.' );
+			return false;
+		}
+
+		var variations    = variationsRaw.variations.replace(/&quot;/g, '"'),
 			placeholder   = variationsRaw.att_data_sel,
 			numSelectors  = +variationsRaw.num_variations, // Cast integer
 			selectedVal   = {},
 			attributes    = [],
 			type_data_selector;
-
-		/*
-		 * Control existence of DOM objects
-		 */
-		if ( -1 === [ 'SELECT', 'INPUT' ].indexOf( selectorType ) ) {
-			console.log( 'This plugin is intended to work only with dropdown lists and radio buttons as variations selectors.' );
-			return false;
-		}
-
-		if ( 0 === $selector.length ) {
-			console.log( 'It seems that we can\'t find the DOM object were actions are hooked.' );
-			return false;
-		}
-		if ( 0 === $hook.length ) {
-			console.log( 'It seems that we can\'t find the DOM object were data will be hooked.' );
-			return false;
-		}
 
 		variations = jQuery.parseJSON( variations );
 
@@ -102,7 +104,7 @@ if ( 'object' !== typeof console ) {
 		} else if ( '#' === placeholder.charAt(0) ) {
 			type_data_selector = 'id';
 		} else {
-			console.log( 'Misconfiguration on Data Selector. Please, verify first char.' );
+			console.log( '%cError VDOPP:', 'font-weight: bold; color: red', 'Misconfiguration on Data Selector. Please, verify first char.' );
 			return false;
 		}
 

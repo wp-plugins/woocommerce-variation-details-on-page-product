@@ -17,7 +17,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		class MP_WC_Variation_Details_On_Page_Product {
 
 			// Definition of version
-			const VERSION = '3.2';
+			const VERSION = '3.2.1';
 			const VERSION_OPTION_NAME = 'mp_wc_vdopp_version';
 
 			public $plugin_prefix;
